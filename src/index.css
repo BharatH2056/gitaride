@@ -1,0 +1,61 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap');
+@import "tailwindcss";
+@custom-variant dark (&:is(.dark *));
+
+@theme {
+  --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, monospace;
+  
+  --color-uber-black: #000000;
+  --color-uber-white: #ffffff;
+  --color-uber-green: #2ecc71;
+  --color-uber-accent: #276ef1;
+}
+
+/* Custom leaflet tweaks to fit premium dark and light mock styling */
+.leaflet-container {
+  height: 100%;
+  width: 100%;
+  font-family: inherit;
+  background: #f3f4f6;
+}
+
+:root.dark .leaflet-container {
+  background: #09090b;
+}
+
+/* Base custom interactive styles */
+body {
+  font-family: var(--font-sans);
+  background-color: #f6f6f6;
+  color: #121212;
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root.dark body {
+    background-color: #09090b; /* zinc-950 */
+    color: #fafafa;
+  }
+}
+:root.dark body {
+    background-color: #09090b; /* zinc-950 */
+    color: #fafafa;
+}
+
+::-webkit-scrollbar {
+  width: 6px;
+}
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+::-webkit-scrollbar-thumb {
+  background: #ccc;
+  border-radius: 3px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #999;
+}
+

@@ -1,0 +1,10 @@
+{
+  "name": "Remix: GitaRide",
+  "description": "A seamless carpooling platform connecting drivers and passengers for cost-effective, efficient daily commutes and shared travel.",
+  "requestFramePermissions": [
+    "geolocation"
+  ],
+  "majorCapabilities": [
+    "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
+  ]
+}

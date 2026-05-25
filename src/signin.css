@@ -1,0 +1,423 @@
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --black: #000000;
+  --white: #ffffff;
+  --gray-50: #f6f6f6;
+  --gray-100: #eeeeee;
+  --gray-200: #e2e2e2;
+  --gray-400: #adadad;
+  --gray-600: #545454;
+  --gray-800: #1a1a1a;
+  --accent: #ffffff;
+  --danger: #e53935;
+  --admin-accent: #06c167;
+  --font-display: 'Bebas Neue', sans-serif;
+  --font-body: 'DM Sans', sans-serif;
+  --font-mono: 'Space Mono', monospace;
+}
+
+.signin-shell {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  height: 100vh;
+  width: 100vw;
+  font-family: var(--font-body);
+  background: var(--black);
+  color: var(--white);
+  overflow: hidden;
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 9999;
+}
+
+/* ─── LEFT PANEL ─── */
+.signin-left {
+  position: relative;
+  overflow: hidden;
+  background: var(--black);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 48px;
+}
+
+.signin-map-bg {
+  position: absolute;
+  inset: 0;
+  background-image:
+    radial-gradient(circle at 30% 60%, rgba(6,193,103,0.08) 0%, transparent 55%),
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='600' height='700'%3E%3Cdefs%3E%3Cfilter id='blur'%3E%3CfeGaussianBlur stdDeviation='0.4'/%3E%3C/filter%3E%3C/defs%3E%3Cg filter='url(%23blur)' stroke='%23333' stroke-width='0.6' fill='none'%3E%3Cline x1='0' y1='120' x2='600' y2='120'/%3E%3Cline x1='0' y1='240' x2='600' y2='240'/%3E%3Cline x1='0' y1='360' x2='600' y2='360'/%3E%3Cline x1='0' y1='480' x2='600' y2='480'/%3E%3Cline x1='0' y1='600' x2='600' y2='600'/%3E%3Cline x1='100' y1='0' x2='100' y2='700'/%3E%3Cline x1='200' y1='0' x2='200' y2='700'/%3E%3Cline x1='300' y1='0' x2='300' y2='700'/%3E%3Cline x1='400' y1='0' x2='400' y2='700'/%3E%3Cline x1='500' y1='0' x2='500' y2='700'/%3E%3Cline x1='50' y1='0' x2='200' y2='200'/%3E%3Cline x1='150' y1='100' x2='400' y2='350'/%3E%3Cline x1='0' y1='300' x2='350' y2='650'/%3E%3Cline x1='200' y1='0' x2='600' y2='400'/%3E%3Cline x1='350' y1='200' x2='600' y2='450'/%3E%3Ccircle cx='190' cy='310' r='7' stroke='%2306c167' stroke-width='1.5'/%3E%3Ccircle cx='190' cy='310' r='3' fill='%2306c167'/%3E%3Ccircle cx='370' cy='190' r='5' stroke='%23555' stroke-width='1'/%3E%3Ccircle cx='370' cy='190' r='2' fill='%23555'/%3E%3Ccircle cx='420' cy='430' r='5' stroke='%23555' stroke-width='1'/%3E%3Ccircle cx='420' cy='430' r='2' fill='%23555'/%3E%3Cpath d='M 160 310 Q 260 270 370 190' stroke='%2306c167' stroke-width='1' stroke-dasharray='4 3'/%3E%3C/g%3E%3C/svg%3E");
+  background-size: cover;
+  opacity: 0.9;
+}
+
+/* Animated route line */
+.signin-route-anim {
+  position: absolute;
+  bottom: 140px;
+  left: 80px;
+  width: 260px;
+  height: 180px;
+  pointer-events: none;
+}
+.signin-route-anim svg { width: 100%; height: 100%; }
+.signin-route-path {
+  stroke: #06c167;
+  stroke-width: 2;
+  fill: none;
+  stroke-dasharray: 400;
+  stroke-dashoffset: 400;
+  animation: drawRoute 2.8s ease forwards 0.6s;
+}
+@keyframes drawRoute {
+  to { stroke-dashoffset: 0; }
+}
+
+/* Car dot */
+.signin-car-dot {
+  position: absolute;
+  width: 10px; height: 10px;
+  background: #06c167;
+  border-radius: 50%;
+  box-shadow: 0 0 0 4px rgba(6,193,103,0.2);
+  bottom: 140px; left: 80px;
+  animation: moveCar 2.8s ease forwards 0.6s;
+}
+@keyframes moveCar {
+  0%   { bottom: 140px; left: 80px; }
+  40%  { bottom: 230px; left: 150px; }
+  70%  { bottom: 250px; left: 240px; }
+  100% { bottom: 305px; left: 310px; }
+}
+
+.signin-logo {
+  position: relative;
+  z-index: 2;
+  font-family: var(--font-display);
+  font-size: 42px;
+  letter-spacing: 2px;
+  color: var(--white);
+  animation: signinFadeUp 0.6s ease both;
+}
+
+.signin-left-copy {
+  position: relative;
+  z-index: 2;
+  animation: signinFadeUp 0.7s ease 0.15s both;
+}
+.signin-left-copy h1 {
+  font-family: var(--font-display);
+  font-size: clamp(52px, 6vw, 80px);
+  line-height: 0.95;
+  letter-spacing: 1px;
+  margin-bottom: 20px;
+}
+.signin-left-copy h1 em {
+  color: #06c167;
+  font-style: normal;
+}
+.signin-left-copy p {
+  font-size: 15px;
+  color: var(--gray-400);
+  font-weight: 300;
+  max-width: 320px;
+  line-height: 1.6;
+}
+
+.signin-stat-row {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  gap: 36px;
+  animation: signinFadeUp 0.7s ease 0.3s both;
+}
+.signin-stat { display: flex; flex-direction: column; gap: 2px; }
+.signin-stat-num {
+  font-family: var(--font-display);
+  font-size: 28px;
+  color: var(--white);
+  letter-spacing: 1px;
+}
+.signin-stat-label {
+  font-size: 11px;
+  color: var(--gray-400);
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+}
+
+/* ─── RIGHT PANEL ─── */
+.signin-right {
+  background: var(--white);
+  color: var(--black);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 48px 60px;
+  position: relative;
+  overflow: hidden;
+}
+
+.signin-right::before {
+  content: '';
+  position: absolute;
+  top: -80px; right: -80px;
+  width: 280px; height: 280px;
+  border-radius: 50%;
+  background: rgba(0,0,0,0.03);
+  pointer-events: none;
+}
+
+.signin-role-toggle {
+  display: flex;
+  background: var(--gray-100);
+  border-radius: 12px;
+  padding: 4px;
+  margin-bottom: 36px;
+  width: fit-content;
+  animation: signinFadeUp 0.5s ease 0.1s both;
+}
+.signin-role-btn {
+  padding: 10px 28px;
+  border-radius: 9px;
+  border: none;
+  background: transparent;
+  font-family: var(--font-body);
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--gray-600);
+  cursor: pointer;
+  transition: all 0.22s ease;
+  letter-spacing: 0.2px;
+}
+.signin-role-btn.active {
+  background: var(--black);
+  color: var(--white);
+  box-shadow: 0 2px 12px rgba(0,0,0,0.18);
+}
+.signin-role-btn.active.admin-mode {
+  background: #06c167;
+  color: var(--white);
+}
+
+.signin-form-header {
+  margin-bottom: 32px;
+  animation: signinFadeUp 0.5s ease 0.15s both;
+}
+.signin-form-header h2 {
+  font-family: var(--font-display);
+  font-size: 38px;
+  line-height: 1;
+  letter-spacing: 0.5px;
+  margin-bottom: 6px;
+}
+.signin-form-header p {
+  font-size: 14px;
+  color: var(--gray-600);
+  font-weight: 300;
+}
+
+/* Clerk-styled form */
+.signin-clerk-form {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  animation: signinFadeUp 0.5s ease 0.2s both;
+}
+
+.signin-field {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+.signin-field label {
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--gray-800);
+  letter-spacing: 0.4px;
+  text-transform: uppercase;
+}
+.signin-field input {
+  width: 100%;
+  padding: 13px 16px;
+  border: 1.5px solid var(--gray-200);
+  border-radius: 10px;
+  font-family: var(--font-body);
+  font-size: 15px;
+  color: var(--black);
+  background: var(--gray-50);
+  outline: none;
+  transition: border-color 0.18s, background 0.18s, box-shadow 0.18s;
+}
+.signin-field input:focus {
+  border-color: var(--black);
+  background: var(--white);
+  box-shadow: 0 0 0 3px rgba(0,0,0,0.06);
+}
+.signin-field input.admin-focus:focus {
+  border-color: #06c167;
+  box-shadow: 0 0 0 3px rgba(6,193,103,0.12);
+}
+
+.signin-forgot {
+  font-size: 13px;
+  color: var(--gray-600);
+  text-decoration: none;
+  align-self: flex-end;
+  margin-top: -4px;
+  transition: color 0.15s;
+}
+.signin-forgot:hover { color: var(--black); }
+
+.signin-submit-btn {
+  width: 100%;
+  padding: 15px;
+  border-radius: 10px;
+  border: none;
+  background: var(--black);
+  color: var(--white);
+  font-family: var(--font-body);
+  font-size: 15px;
+  font-weight: 600;
+  letter-spacing: 0.3px;
+  cursor: pointer;
+  margin-top: 4px;
+  position: relative;
+  overflow: hidden;
+  transition: transform 0.15s, box-shadow 0.15s, background 0.15s;
+}
+.signin-submit-btn::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: rgba(255,255,255,0);
+  transition: background 0.2s;
+}
+.signin-submit-btn:hover { transform: translateY(-1px); box-shadow: 0 6px 20px rgba(0,0,0,0.18); }
+.signin-submit-btn:active { transform: translateY(0); }
+.signin-submit-btn.admin { background: #06c167; }
+.signin-submit-btn.admin:hover { box-shadow: 0 6px 20px rgba(6,193,103,0.3); }
+
+/* Divider */
+.signin-divider {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  color: var(--gray-400);
+  font-size: 12px;
+  margin: 4px 0;
+}
+.signin-divider::before, .signin-divider::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: var(--gray-200);
+}
+
+/* Social buttons */
+.signin-social-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+}
+.signin-social-btn {
+  flex: 1;
+  padding: 11px 10px;
+  border: 1.5px solid var(--gray-200);
+  border-radius: 10px;
+  background: var(--white);
+  font-family: var(--font-body);
+  font-size: 12.5px;
+  font-weight: 500;
+  color: var(--gray-800);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 7px;
+  transition: border-color 0.18s, background 0.18s, box-shadow 0.18s;
+  white-space: nowrap;
+}
+.signin-social-btn:hover { border-color: var(--gray-400); background: var(--gray-50); box-shadow: 0 2px 8px rgba(0,0,0,0.06); }
+.signin-social-icon { width: 17px; height: 17px; flex-shrink: 0; }
+
+/* Admin badge */
+.signin-admin-badge {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(6,193,103,0.08);
+  border: 1px solid rgba(6,193,103,0.25);
+  border-radius: 8px;
+  padding: 10px 14px;
+  font-size: 12px;
+  color: #06c167;
+  font-weight: 500;
+  margin-bottom: 4px;
+}
+.signin-admin-dot { width: 7px; height: 7px; border-radius: 50%; background: #06c167; animation: signinPulse 1.5s infinite; }
+@keyframes signinPulse {
+  0%, 100% { opacity: 1; box-shadow: 0 0 0 0 rgba(6,193,103,0.4); }
+  50% { opacity: 0.8; box-shadow: 0 0 0 5px rgba(6,193,103,0); }
+}
+
+.signin-sign-up {
+  font-size: 13px;
+  color: var(--gray-600);
+  text-align: center;
+  margin-top: 6px;
+}
+.signin-sign-up a { color: var(--black); font-weight: 500; text-decoration: none; border-bottom: 1px solid currentColor; }
+
+/* Clerk branding */
+.signin-clerk-brand {
+  position: absolute;
+  bottom: 20px;
+  left: 0; right: 0;
+  text-align: center;
+  font-size: 11px;
+  color: var(--gray-400);
+  letter-spacing: 0.3px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+}
+.signin-clerk-brand svg { opacity: 0.5; }
+
+/* 2FA row for admin */
+.signin-twofa-row {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+@keyframes signinFadeUp {
+  from { opacity: 0; transform: translateY(16px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* Loading state */
+.signin-submit-btn .signin-btn-text { transition: opacity 0.2s; }
+.signin-submit-btn .signin-spinner {
+  display: none;
+  width: 18px; height: 18px;
+  border: 2px solid rgba(255,255,255,0.3);
+  border-top-color: white;
+  border-radius: 50%;
+  animation: signinSpin 0.6s linear infinite;
+  position: absolute;
+  left: 50%; top: 50%;
+  transform: translate(-50%, -50%);
+}
+.signin-submit-btn.loading .signin-btn-text { opacity: 0; }
+.signin-submit-btn.loading .signin-spinner { display: block; }
+@keyframes signinSpin { to { transform: translate(-50%,-50%) rotate(360deg); } }
+
+/* Responsive */
+@media (max-width: 800px) {
+  .signin-shell { grid-template-columns: 1fr; }
+  .signin-left { display: none; }
+  .signin-right { padding: 40px 28px; }
+}
